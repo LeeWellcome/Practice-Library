@@ -83,7 +83,7 @@ const StorageEngine = {
             habits: this.getHabits(),
             habitHistory: this.getHabitHistory(),
             exportedAt: new Date().toISOString(),
-            version: '1.0.0'
+            version: '1.0.1'
         };
         
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
