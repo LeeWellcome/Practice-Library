@@ -96,7 +96,7 @@ const app = {
         const btnReset = document.getElementById('btn-reset-data');
         if (btnReset) {
             btnReset.addEventListener('click', () => {
-                if (confirm("⚠️ 警告：这将清除您自建的所有目标和习惯数据，恢复至系统初始示例。是否确认重置？")) {
+                if (confirm("⚠️ 警告：这将清除您录入的所有目标和习惯数据，恢复至最干净的全新状态。是否确认清空？")) {
                     StorageEngine.resetAllData();
                     if (backupModal) backupModal.classList.remove('active');
                     this.fullRefreshUI();
