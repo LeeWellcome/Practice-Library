@@ -1944,55 +1944,125 @@ body {
         flex-direction: column;
     }
     
+    /* 手机端升级为：原生 App 级底部浮动毛玻璃导航栏 */
     .sidebar {
         width: 100%;
         min-height: auto;
-        height: auto;
-        position: relative;
+        height: 64px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        top: auto;
+        right: 0;
+        border-top: 1px solid var(--color-border);
+        border-bottom: none;
         border-right: none;
-        border-bottom: 1px solid var(--color-border);
-        padding: 1.25rem 1.5rem;
+        border-left: none;
+        border-radius: 16px 16px 0 0;
+        padding: 0.5rem 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(245, 244, 240, 0.92); /* 结合宣纸色的毛玻璃 */
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.04);
+        z-index: 1000;
     }
     
+    /* 隐藏 LOGO 腾出宝贵屏幕高度 */
     .brand {
-        margin-bottom: 1.5rem;
+        display: none !important;
+    }
+    
+    /* 隐藏页脚，将“岁月匣”提取为底部并列的第5个功能按钮 */
+    .sidebar-footer {
+        border-top: none;
+        padding-top: 0;
+        margin-top: 0;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .sidebar-footer .version {
+        display: none;
+    }
+    
+    .btn-icon {
+        background: transparent;
+        border: none;
+        padding: 0.4rem;
+        border-radius: 50%;
+        color: var(--text-secondary);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.15rem;
+        font-size: 0.65rem;
+        font-weight: 600;
+        transition: var(--transition-smooth);
+    }
+    
+    .btn-icon i {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .btn-icon span {
+        font-size: 0.65rem;
     }
     
     .nav-menu {
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 0.35rem;
-    }
-    
-    .nav-item {
-        padding: 0.65rem 0.85rem;
-        font-size: 0.85rem;
+        justify-content: space-around;
+        width: calc(100% - 60px); /* 留出空间给岁月匣按钮 */
+        gap: 0.15rem;
         flex-grow: 1;
-        justify-content: center;
     }
     
-    .sidebar-footer {
-        flex-direction: row;
-        justify-content: space-between;
+    /* 极简微缩 iOS 风格 Tab 项 */
+    .nav-item {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0.35rem 0.1rem;
+        font-size: 0.65rem;
+        font-weight: 600;
+        flex-direction: column;
         align-items: center;
-        margin-top: 1rem;
-        padding-top: 1rem;
+        justify-content: center;
+        gap: 0.15rem;
+        flex-grow: 1;
+        color: var(--text-secondary);
     }
     
-    .btn-icon {
-        flex-grow: 0;
+    .nav-item.active {
+        color: var(--color-work);
     }
     
+    .nav-item i {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+    }
+    
+    .nav-item.active i {
+        transform: scale(1.15);
+    }
+    
+    /* 主内容区底部预留 80px 空间，防止被底部导航栏遮挡 */
     .main-content {
         margin-left: 0;
         padding: 1.25rem;
+        padding-bottom: 80px; 
     }
     
     .header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1.25rem;
-        padding: 1.25rem;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1.25rem;
     }
     
     .header-right {
@@ -2005,27 +2075,72 @@ body {
     
     .dashboard-stats-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.85rem;
+    }
+    
+    .dashboard-layout {
+        gap: 1.25rem;
     }
     
     .goals-container {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
     
     .roadmap-timeline {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
     
     .habits-list-grid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    /* 手机端模态框升级为优雅的“底部滑出抽屉” (Bottom Sheet Drawer) */
+    .modal-overlay {
+        align-items: flex-end;
     }
     
     .modal-content {
-        max-width: 90%;
-        padding: 1.5rem;
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        padding: 1.5rem 1.25rem 2.5rem; /* 底部多加 padding 兼容全面屏手势 */
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .modal-overlay.active .modal-content {
+        transform: translateY(0);
     }
     
     .form-row {
         grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .search-and-add {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    
+    .search-wrapper {
+        width: 100%;
+    }
+    
+    .btn-primary {
+        width: 100%;
+        justify-content: center;
     }
 }
