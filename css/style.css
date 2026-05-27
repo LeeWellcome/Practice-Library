@@ -1006,7 +1006,7 @@ body {
     width: 240px;
 }
 
-.search-wrapper i {
+.search-wrapper i, .search-wrapper svg {
     position: absolute;
     left: 0.75rem;
     top: 50%;
@@ -1014,15 +1014,16 @@ body {
     width: 16px;
     height: 16px;
     color: var(--text-muted);
+    pointer-events: none; /* 让图标可以被穿透点击，点击图标也能聚焦到输入框 */
 }
 
 .search-wrapper input {
     width: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.85); /* 适配高雅暖宣纸底色，透明微白更显清澈 */
     border: 1px solid var(--color-border);
     outline: none;
     border-radius: 8px;
-    padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+    padding: 0.55rem 0.75rem 0.55rem 2.2rem;
     color: var(--text-primary);
     font-family: var(--font-primary);
     font-size: 0.85rem;
