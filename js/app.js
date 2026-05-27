@@ -174,7 +174,7 @@ const app = {
         
         // Calculate dynamic precision percentage
         const progressRatio = passedMs / totalMs;
-        const progressPercent = (progressRatio * 100).toFixed(4); // 4 decimals for dynamic clock ticker feel!
+        const progressPercent = (progressRatio * 100).toFixed(2); // 只保留两位小数，清爽且一目了然
         
         progressBar.style.width = `${progressRatio * 100}%`;
         percentText.innerText = `${progressPercent}%`;

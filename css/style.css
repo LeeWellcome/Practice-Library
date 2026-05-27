@@ -367,7 +367,7 @@ body {
 
 /* Year Progress Bar */
 .year-progress-wrapper {
-    width: 240px;
+    width: 350px; /* 拓宽至 350px，给右侧倒计时与句子留足空间，确保在同一行内优雅展现不折行 */
 }
 
 .progress-label {
@@ -388,19 +388,19 @@ body {
 }
 
 .progress-track {
-    height: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
+    height: 10px; /* 增加到 10px 厚度，让进度清晰醒目 */
+    background: rgba(0, 0, 0, 0.05); /* 适配亮色宣纸背景，改为微暗毛玻璃质感底色 */
+    border-radius: 6px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08); /* 极细墨线边框，构筑清晰的进度边界 */
 }
 
 .progress-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, var(--color-work), var(--color-study), var(--color-life));
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    background: linear-gradient(90deg, var(--color-work), var(--color-accent), var(--color-life)); /* 极致雅致渐变过渡 */
+    border-radius: 6px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 2px 4px rgba(0, 0, 0, 0.12); /* 3D微拟物阴影，极具质感 */
     transition: width 1s ease-in-out;
 }
 
