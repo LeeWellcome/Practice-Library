@@ -1948,7 +1948,7 @@ body {
     .sidebar {
         width: 100%;
         min-height: auto;
-        height: 64px;
+        height: calc(64px + env(safe-area-inset-bottom));
         position: fixed;
         bottom: 0;
         left: 0;
@@ -1959,15 +1959,16 @@ body {
         border-right: none;
         border-left: none;
         border-radius: 16px 16px 0 0;
-        padding: 0.5rem 1rem;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        padding: 0.5rem 0.25rem env(safe-area-inset-bottom);
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
         background: rgba(245, 244, 240, 0.92); /* 结合宣纸色的毛玻璃 */
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
         box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.04);
         z-index: 1000;
+        box-sizing: border-box;
     }
     
     /* 隐藏 LOGO 腾出宝贵屏幕高度 */
@@ -1977,47 +1978,60 @@ body {
     
     /* 隐藏页脚，将“岁月匣”提取为底部并列的第5个功能按钮 */
     .sidebar-footer {
-        border-top: none;
-        padding-top: 0;
-        margin-top: 0;
-        flex-direction: row;
-        align-items: center;
+        border-top: none !important;
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        width: 20% !important;
+        flex-grow: 1 !important;
+        justify-content: center !important;
     }
     
     .sidebar-footer .version {
-        display: none;
+        display: none !important;
     }
     
+    /* 岁月匣按钮在手机端完全适配为第5个 Tab 项，样式与前4个完全统一 */
     .btn-icon {
-        background: transparent;
-        border: none;
-        padding: 0.4rem;
-        border-radius: 50%;
-        color: var(--text-secondary);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.15rem;
-        font-size: 0.65rem;
-        font-weight: 600;
-        transition: var(--transition-smooth);
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0.35rem 0.1rem !important;
+        border-radius: 0 !important;
+        color: var(--text-secondary) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.15rem !important;
+        font-size: 0.65rem !important;
+        font-weight: 600 !important;
+        transition: var(--transition-smooth) !important;
+        flex-grow: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
     .btn-icon i {
-        width: 20px;
-        height: 20px;
+        width: 20px !important;
+        height: 20px !important;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     }
     
     .btn-icon span {
-        font-size: 0.65rem;
+        font-size: 0.65rem !important;
     }
     
     .nav-menu {
-        flex-direction: row;
-        justify-content: space-around;
-        width: calc(100% - 60px); /* 留出空间给岁月匣按钮 */
-        gap: 0.15rem;
-        flex-grow: 1;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-around !important;
+        width: 80% !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        flex-grow: 4 !important;
     }
     
     /* 极简微缩 iOS 风格 Tab 项 */
@@ -2025,36 +2039,41 @@ body {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 0.35rem 0.1rem;
-        font-size: 0.65rem;
-        font-weight: 600;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.15rem;
-        flex-grow: 1;
-        color: var(--text-secondary);
+        padding: 0.35rem 0.1rem !important;
+        font-size: 0.65rem !important;
+        font-weight: 600 !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.15rem !important;
+        flex-grow: 1 !important;
+        color: var(--text-secondary) !important;
+        width: 25% !important;
+        max-width: 25% !important;
     }
     
-    .nav-item.active {
-        color: var(--color-work);
-    }
+    /* 极致禅意：不同板块激活时呈现专属的雅致主题色 */
+    #nav-dashboard.active { color: var(--color-accent) !important; } /* 岁月流金 */
+    #nav-goals.active { color: var(--color-work) !important; }      /* 石青深蓝 */
+    #nav-roadmap.active { color: var(--color-study) !important; }  /* 松针幽绿 */
+    #nav-habits.active { color: var(--color-life) !important; }    /* 泥红暖赤 */
     
     .nav-item i {
-        width: 20px;
-        height: 20px;
-        transition: transform 0.2s ease;
+        width: 20px !important;
+        height: 20px !important;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     }
     
+    /* 活泼灵动：激活时微缩放大并微微上浮 */
     .nav-item.active i {
-        transform: scale(1.15);
+        transform: scale(1.15) translateY(-2px) !important;
     }
     
-    /* 主内容区底部预留 80px 空间，防止被底部导航栏遮挡 */
+    /* 主内容区底部预留 80px 空间，并完美适配手机安全区，防止内容被遮挡 */
     .main-content {
         margin-left: 0;
         padding: 1.25rem;
-        padding-bottom: 80px; 
+        padding-bottom: calc(80px + env(safe-area-inset-bottom)); 
     }
     
     .header {
