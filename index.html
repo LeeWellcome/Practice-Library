@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Plan（午先生尊享版） | Serene Zen Edition</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="LifeNavigator 365 是一款极具现代感的个人年度规划与追踪系统。通过深空暗黑玻璃拟态设计，完美整合工作、学习、生活三大维度的目标管理、时间轴路线图、Canvas人生平衡分析以及GitHub风格习惯能量网，助您实现全方位的自我成长。">
+    <meta name="keywords" content="年度规划, 目标管理, 习惯追踪, 学习计划, 工作规划, 玻璃拟态, 个人成长">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Background Glows -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <!-- Celebration Canvas -->
+    <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i data-lucide="compass" class="logo-spin"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Life Plan</h1>
+                    <span>午先生尊享版</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="dashboard" id="nav-dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>静心居</span>
+                </button>
+                <button class="nav-item" data-tab="goals" id="nav-goals">
+                    <i data-lucide="target"></i>
+                    <span>素履往</span>
+                </button>
+                <button class="nav-item" data-tab="roadmap" id="nav-roadmap">
+                    <i data-lucide="milestone"></i>
+                    <span>光阴轴</span>
+                </button>
+                <button class="nav-item" data-tab="habits" id="nav-habits">
+                    <i data-lucide="flame"></i>
+                    <span>日常修</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-icon" id="btn-backup" title="数据备份与恢复">
+                    <i data-lucide="database"></i>
+                    <span>岁月匣</span>
+                </button>
+                <div class="version">v1.0.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="header glass">
+                <div class="header-left">
+                    <h2 id="header-title">静心居</h2>
+                    <p class="header-subtitle" id="header-subtitle">致虚极，守静笃。静水流深，当下即是全部。</p>
+                </div>
+                <div class="header-right">
+                    <!-- Progress Bar in Header -->
+                    <div class="year-progress-wrapper" title="岁时更替">
+                        <div class="progress-label">
+                            <span class="year-name">岁月流向</span>
+                            <span class="year-percent" id="year-percent-text">0.0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="year-progress-bar"></div>
+                        </div>
+                        <div class="days-countdown" id="days-countdown-text">加载中...</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Viewport -->
+            <div class="content-viewport">
+
+                <!-- ================= TAB: DASHBOARD ================= -->
+                <section class="tab-pane active" id="tab-dashboard">
+                    <!-- Stat Cards Row -->
+                    <div class="dashboard-stats-grid">
+                        <div class="stat-card glass card-work">
+                            <div class="stat-icon"><i data-lucide="briefcase"></i></div>
+                            <div class="stat-info">
+                                <h3>工作事业</h3>
+                                <div class="stat-count" id="stat-work-progress">0/0 达成</div>
+                                <div class="mini-progress">
+                                    <div class="fill" id="progress-bar-work"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card glass card-study">
+                            <div class="stat-icon"><i data-lucide="book-open"></i></div>
+                            <div class="stat-info">
+                                <h3>自我提升</h3>
+                                <div class="stat-count" id="stat-study-progress">0/0 达成</div>
+                                <div class="mini-progress">
+                                    <div class="fill" id="progress-bar-study"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card glass card-life">
+                            <div class="stat-icon"><i data-lucide="heart"></i></div>
+                            <div class="stat-info">
+                                <h3>美好生活</h3>
+                                <div class="stat-count" id="stat-life-progress">0/0 达成</div>
+                                <div class="mini-progress">
+                                    <div class="fill" id="progress-bar-life"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Dashboard Split Layout -->
+                    <div class="dashboard-layout">
+                        <!-- Left Pane: Balance Wheel and Quote -->
+                        <div class="dashboard-left">
+                            <div class="chart-card glass">
+                                <div class="card-header">
+                                    <h4>人生平衡轮 (Life Balance)</h4>
+                                    <i data-lucide="info" title="展示您在三大维度的目标完成均衡度。完成度越均等，轮廓越圆满。"></i>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="balance-wheel-canvas" width="300" height="300"></canvas>
+                                </div>
+                                <div class="chart-legend">
+                                    <span class="legend-item text-work"><span class="dot bg-work"></span>工作</span>
+                                    <span class="legend-item text-study"><span class="dot bg-study"></span>学习</span>
+                                    <span class="legend-item text-life"><span class="dot bg-life"></span>生活</span>
+                                </div>
+                            </div>
+
+                            <!-- Quote of the Day -->
+                            <div class="quote-card glass">
+                                <div class="quote-icon"><i data-lucide="quote"></i></div>
+                                <p class="quote-text" id="quote-text">“种一棵树最好的时间是十年前，其次是现在。”</p>
+                                <p class="quote-author" id="quote-author">—— 杰斐逊</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Pane: Focus List & Short Goals -->
+                        <div class="dashboard-right-pane">
+                            <div class="focus-card glass">
+                                <div class="card-header">
+                                    <h4>今日核心聚焦</h4>
+                                    <span class="focus-date" id="current-date-text">2026.05.28</span>
+                                </div>
+                                <div class="focus-list" id="dashboard-focus-list">
+                                    <!-- Dynamic items -->
+                                    <div class="empty-state">
+                                        <i data-lucide="check-square"></i>
+                                        <p>清风拂面，今日无事。去“素履往”中挑选几件要紧事吧。</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="habit-mini-card glass">
+                                <div class="card-header">
+                                    <h4>日常定课概览</h4>
+                                    <button class="btn-link" onclick="app.switchTab('habits')">前往日常修 <i
+                                            data-lucide="arrow-right"></i></button>
+                                </div>
+                                <div class="habit-quick-list" id="dashboard-habit-quick-list">
+                                    <!-- Dynamic habit quick items -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB: GOALS ================= -->
+                <section class="tab-pane" id="tab-goals">
+                    <!-- Filter Toolbar -->
+                    <div class="toolbar glass">
+                        <div class="filter-group">
+                            <button class="filter-btn active" data-filter="all">全部规划</button>
+                            <button class="filter-btn text-work" data-filter="work"><i data-lucide="briefcase"></i>
+                                工作</button>
+                            <button class="filter-btn text-study" data-filter="study"><i data-lucide="book-open"></i>
+                                学习</button>
+                            <button class="filter-btn text-life" data-filter="life"><i data-lucide="heart"></i>
+                                生活</button>
+                        </div>
+                        <div class="search-and-add">
+                            <div class="search-wrapper">
+                                <i data-lucide="search"></i>
+                                <input type="text" id="search-goals" placeholder="静心检索规划...">
+                            </div>
+                            <button class="btn-primary" id="btn-add-goal">
+                                <i data-lucide="plus"></i> 落笔新规划
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Goals Grid -->
+                    <div class="goals-container" id="goals-grid">
+                        <!-- Dynamic content -->
+                    </div>
+                </section>
+
+                <!-- ================= TAB: ROADMAP ================= -->
+                <section class="tab-pane" id="tab-roadmap">
+                    <div class="roadmap-intro glass">
+                        <div class="intro-content">
+                            <h3><i data-lucide="milestone"></i> 2026 光阴流向轴</h3>
+                            <p>观日月流转，察四时更替。静待花开，顺其自然。</p>
+                        </div>
+                        <div class="roadmap-stats">
+                            <div class="r-stat">
+                                <span id="roadmap-total-goals">0</span>
+                                <label>定念数</label>
+                            </div>
+                            <div class="r-stat">
+                                <span class="text-accent" id="roadmap-completed-goals">0</span>
+                                <label>修圆数</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Roadmap Grid -->
+                    <div class="roadmap-timeline" id="roadmap-timeline-container">
+                        <!-- Quarters Grid -->
+                        <!-- Dynamic rendering of months & assigned goals -->
+                    </div>
+                </section>
+
+                <!-- ================= TAB: HABITS ================= -->
+                <section class="tab-pane" id="tab-habits">
+                    <!-- Top section: add habit & grid summary -->
+                    <div class="habits-layout-top">
+                        <!-- GitHub style contribution calendar -->
+                        <div class="habit-calendar-card glass">
+                            <div class="card-header">
+                                <div>
+                                    <h4>三百六十五日 修身能量网</h4>
+                                    <p class="card-subtitle">日拱一卒，日日不断。点滴微澜，终成巨浪。</p>
+                                </div>
+                                <div class="calendar-legend">
+                                    <span>无修</span>
+                                    <div class="legend-cells">
+                                        <div class="cell lvl-0"></div>
+                                        <div class="cell lvl-1"></div>
+                                        <div class="cell lvl-2"></div>
+                                        <div class="cell lvl-3"></div>
+                                    </div>
+                                    <span>勤修</span>
+                                </div>
+                            </div>
+                            <div class="calendar-wrapper-scroll">
+                                <div class="habit-heatmap-grid" id="habit-heatmap">
+                                    <!-- Dynamic pixel grid of 365 days / columns of weeks -->
+                                </div>
+                            </div>
+                            <div class="heatmap-months-labels" id="heatmap-months-labels">
+                                <!-- Dynamic month labels -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Habits Action Row -->
+                    <div class="habits-toolbar">
+                        <h3>日常修定课</h3>
+                        <button class="btn-primary" id="btn-add-habit">
+                            <i data-lucide="plus-circle"></i> 置新定课
+                        </button>
+                    </div>
+
+                    <!-- Habits Control List -->
+                    <div class="habits-list-grid" id="habits-list-container">
+                        <!-- Dynamic Habit Cards with check-in details -->
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- Goal Add/Edit Modal -->
+    <div class="modal-overlay" id="goal-modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3 id="goal-modal-title">新建年度目标</h3>
+                <button class="btn-close-modal" id="btn-close-goal-modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="goal-form">
+                <input type="hidden" id="goal-id">
+                <div class="form-group">
+                    <label for="goal-title">目标名称 <span class="required">*</span></label>
+                    <input type="text" id="goal-title" required placeholder="例如：掌握 React 及前端系统架构设计">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="goal-category">目标维度</label>
+                        <select id="goal-category">
+                            <option value="work">工作事业</option>
+                            <option value="study">自我提升</option>
+                            <option value="life">美好生活</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal-priority">优先级</label>
+                        <select id="goal-priority">
+                            <option value="high">🔥 高优先级</option>
+                            <option value="medium" selected>⚡ 中优先级</option>
+                            <option value="low">🌱 低优先级</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="goal-month">计划达成月份</label>
+                        <select id="goal-month">
+                            <option value="1">1月</option>
+                            <option value="2">2月</option>
+                            <option value="3">3月</option>
+                            <option value="4">4月</option>
+                            <option value="5" selected>5月</option>
+                            <option value="6">6月</option>
+                            <option value="7">7月</option>
+                            <option value="8">8月</option>
+                            <option value="9">9月</option>
+                            <option value="10">10月</option>
+                            <option value="11">11月</option>
+                            <option value="12">12月</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal-status">状态</label>
+                        <select id="goal-status">
+                            <option value="todo">未开始</option>
+                            <option value="doing">进行中</option>
+                            <option value="done">已达成</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="goal-focus">
+                        <label for="goal-focus" class="checkbox-label">
+                            <i data-lucide="star" class="star-icon"></i>
+                            标记为今日核心聚焦目标
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Milestone Section inside Goal Creator -->
+                <div class="milestones-editor-section">
+                    <div class="editor-header">
+                        <label>任务里程碑拆解 (Milestones)</label>
+                        <button type="button" class="btn-secondary btn-sm" id="btn-add-milestone-input">
+                            <i data-lucide="plus"></i> 增加里程碑
+                        </button>
+                    </div>
+                    <div class="milestones-input-list" id="milestones-input-container">
+                        <!-- Dynamic milestone input fields -->
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="btn-cancel-goal-modal">取消</button>
+                    <button type="submit" class="btn-primary" id="btn-save-goal">确认保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Habit Add Modal -->
+    <div class="modal-overlay" id="habit-modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3>添加日常习惯</h3>
+                <button class="btn-close-modal" id="btn-close-habit-modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="habit-form">
+                <div class="form-group">
+                    <label for="habit-name">习惯名称 <span class="required">*</span></label>
+                    <input type="text" id="habit-name" required placeholder="例如：每天清晨慢跑 3 公里 / 阅读半小时">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="habit-category">属于哪个维度</label>
+                        <select id="habit-category">
+                            <option value="life" selected>美好生活</option>
+                            <option value="study">自我提升</option>
+                            <option value="work">工作事业</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="habit-frequency">打卡频次</label>
+                        <select id="habit-frequency" disabled>
+                            <option value="daily">每日坚持</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="btn-cancel-habit-modal">取消</button>
+                    <button type="submit" class="btn-primary">确认添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Backup & Restore Modal -->
+    <div class="modal-overlay" id="backup-modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3>数据备份与恢复</h3>
+                <button class="btn-close-modal" id="btn-close-backup-modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="backup-modal-body">
+                <p class="description-text">
+                    您的所有计划数据均保存在本地浏览器的 LocalStorage 中。为了防止数据丢失，建议定期导出备份。
+                </p>
+                <div class="backup-actions">
+                    <button class="btn-primary btn-full" id="btn-export-data">
+                        <i data-lucide="download"></i> 导出计划数据 (JSON)
+                    </button>
+                    <div class="divider">
+                        <span>或</span>
+                    </div>
+                    <div class="import-section">
+                        <label class="btn-secondary btn-full clickable-label">
+                            <i data-lucide="upload"></i> 导入备份数据
+                            <input type="file" id="file-import-data" accept=".json" style="display: none;">
+                        </label>
+                    </div>
+                </div>
+                <div class="backup-danger-zone">
+                    <h5>危险区域</h5>
+                    <button class="btn-danger btn-full" id="btn-reset-data">
+                        <i data-lucide="trash-2"></i> 重置所有数据（恢复初始示例）
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Module Loading -->
+    <script src="js/storage.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/goals.js"></script>
+    <script src="js/habits.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
