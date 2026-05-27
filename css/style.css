@@ -236,6 +236,10 @@ body {
     display: block;
 }
 
+.mobile-brand-bar {
+    display: none;
+}
+
 .nav-menu {
     display: flex;
     flex-direction: column;
@@ -2067,6 +2071,56 @@ body {
     /* 活泼灵动：激活时微缩放大并微微上浮 */
     .nav-item.active i {
         transform: scale(1.15) translateY(-2px) !important;
+    }
+    
+    /* 手机端顶部浮动应用标识栏 */
+    .mobile-brand-bar {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        padding: 0.75rem 1.25rem !important;
+        background: var(--color-bg-surface) !important;
+        backdrop-filter: var(--glass-blur) !important;
+        -webkit-backdrop-filter: var(--glass-blur) !important;
+        border: 1px solid var(--color-border) !important;
+        border-radius: 16px !important;
+        margin-bottom: 1rem !important;
+        box-shadow: var(--glass-shadow) !important;
+    }
+    
+    .mobile-brand-bar .logo-icon {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 10px !important;
+        background: linear-gradient(135deg, var(--color-work), var(--color-accent)) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    
+    .mobile-brand-bar .logo-icon i {
+        width: 18px !important;
+        height: 18px !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .mobile-brand-bar .logo-text h1 {
+        font-family: var(--font-heading) !important;
+        font-size: 1.10rem !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px !important;
+        color: var(--text-primary) !important;
+        line-height: 1.2 !important;
+    }
+    
+    .mobile-brand-bar .logo-text span {
+        font-size: 0.60rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 1px !important;
+        color: var(--text-secondary) !important;
+        display: block !important;
+        line-height: 1.1 !important;
     }
     
     /* 主内容区底部预留 80px 空间，并完美适配手机安全区，防止内容被遮挡 */
