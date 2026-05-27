@@ -2087,6 +2087,53 @@ body {
         gap: 1.25rem;
     }
     
+    .goal-card {
+        padding: 1.2rem 1.1rem; /* 缩减卡片内边距，释放屏幕空间 */
+    }
+    
+    .goal-card-top {
+        flex-wrap: wrap; /* 顶部分类标签与操作项自适应换行 */
+        gap: 0.5rem;
+    }
+    
+    .goal-badge-row {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+    
+    .goal-title {
+        font-size: 1.05rem; /* 稍微缩小主标题字号，更显精致 */
+        margin-bottom: 0.75rem;
+    }
+    
+    .milestone-text {
+        white-space: normal; /* 解除不换行限制！允许长文本换行显示 */
+        word-break: break-all;
+        line-height: 1.45;
+        padding-right: 0.25rem;
+    }
+    
+    .filter-group {
+        display: flex;
+        overflow-x: auto; /* 核心优化：过滤器在手机端支持横向丝滑滑动 */
+        white-space: nowrap;
+        gap: 0.4rem;
+        padding-bottom: 0.35rem;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -0.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .filter-group::-webkit-scrollbar {
+        display: none; /* 隐藏滑动条，追求极致留白 */
+    }
+    
+    .filter-btn {
+        flex-shrink: 0; /* 防止过滤器被挤压变形 */
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
     .roadmap-timeline {
         grid-template-columns: 1fr;
         gap: 1.25rem;
